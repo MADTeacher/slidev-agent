@@ -448,13 +448,13 @@ The project includes `scripts/fix-export.mjs` which is automatically invoked aft
 
 ### PNG Export (individual slide images)
 
-**CRITICAL:** PNG export MUST use `--wait-until networkidle` (not `load`) to ensure all slides are fully rendered before capture. After export, ALWAYS verify the output directory contains files.
+**CRITICAL:** PNG export MUST use `--wait-until networkidle` (not `load`) to ensure all slides are fully rendered before capture. In this project, always use the wrapper script instead of calling `slidev export` yourself:
 
 ```bash
-npx slidev export slides.md --format png --output ./output/my-presentation --timeout 120000 --wait 1500 --wait-until networkidle
+bun run export:png
 ```
 
-Then verify the directory is non-empty:
+Then verify the output directory is non-empty:
 ```bash
 ls -la ./output/my-presentation/
 ```

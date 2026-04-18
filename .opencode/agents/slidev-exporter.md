@@ -7,7 +7,6 @@ permission:
     "slidev-presentation": "allow"
   bash:
     "bun run export*": "allow"
-    "npx slidev export*": "allow"
     "mkdir *": "allow"
     "ls *": "allow"
   read: "allow"
@@ -28,7 +27,7 @@ Export the assembled `slides.md` to PDF, PPTX, and PNG slide images.
 ## Steps
 
 1. Ensure the `output/` directory exists: `mkdir -p output`
-2. **ALWAYS use the project's npm scripts** (they automatically run `scripts/fix-export.mjs` to remove Slidev's blank first page). Do NOT call `slidev export` directly.
+2. **ALWAYS use the project's bun scripts** (they automatically run `scripts/fix-export.mjs` where needed to remove Slidev's blank first page). Do NOT call `slidev export` or `npx slidev export` directly.
 
 2. Export to PDF:
    ```
