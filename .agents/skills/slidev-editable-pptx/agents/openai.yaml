@@ -1,0 +1,4 @@
+interface:
+  display_name: "Slidev Editable PPTX"
+  short_description: "Export an approved Slidev deck to an editable PowerPoint."
+  default_prompt: "Use $slidev-editable-pptx to export the approved deck to editable PowerPoint."

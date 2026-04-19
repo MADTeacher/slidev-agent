@@ -13,6 +13,8 @@ Receive the assembled `slides.md` and design recommendations. Add animations, tr
 - **slides.md**: The assembled presentation file
 - **designRecommendations**: From the layout designer (transitions, color scheme, etc.)
 
+Do not edit `output/<slug>.deck-spec.json`. The deck spec remains the semantic source of truth for editable PPTX export.
+
 ## What You Add
 
 ### 1. Click Reveals (v-click) — USE WITH CAUTION

@@ -4,7 +4,8 @@
   "permission": {
     "skill": {
       "slidev-orchestrator": "allow",
-      "slidev-presentation": "allow"
+      "slidev-presentation": "allow",
+      "slidev-editable-pptx": "allow"
     }
   }
 }

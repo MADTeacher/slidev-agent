@@ -73,7 +73,7 @@ export const pdf = tool({
 })
 
 export const pptx = tool({
-  description: "Export Slidev presentation to PPTX using the project's bun run export:pptx script",
+  description: "Export Slidev presentation to editable PPTX using the project's bun run export:pptx script",
   args: {},
   async execute(_args, context) {
     const outputDir = ensureOutputDir(context.worktree)
@@ -83,12 +83,15 @@ export const pptx = tool({
       return String(error)
     }
 
-    const filename = latestFile(outputDir, ".pptx")
+    const filename = newestEntry(
+      outputDir,
+      fs.readdirSync(outputDir).filter((name) => name.endsWith(".pptx") && !name.endsWith("-legacy.pptx")),
+    )
     if (!filename) {
       return "Export PPTX completed, but no PPTX file was found in ./output/"
     }
 
-    return `PPTX exported to ./output/${filename}`
+    return `Editable PPTX exported to ./output/${filename}`
   },
 })
 

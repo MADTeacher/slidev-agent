@@ -6,6 +6,7 @@ This project generates designer-quality presentations using Slidev.
 
 Skill-first orchestration with worker subagents:
 - `slidev-orchestrator` (shared skill) — loaded by the native/root agent to plan, delegate, review, and export
+- `slidev-editable-pptx` (shared skill) — project-local editable PowerPoint export for approved decks
 - 8 specialized worker subagents handle content, design, SVG, diagrams, assembly, styling, review, and export
 
 ## Mandatory Execution Rules
@@ -15,6 +16,7 @@ When the user explicitly invokes the `slidev-orchestrator` skill, or asks for th
 - The native/root agent MUST load and execute the `slidev-orchestrator` skill, not replace it with manual single-agent execution.
 - The orchestration skill MUST delegate work to the specialized subagents defined by the project. It MUST NOT skip delegation just because the root agent can do the work itself.
 - The orchestration skill MUST NOT write `slides.md` itself. `slides.md` must be produced by `slidev-assembler`.
+- The orchestration skill MUST NOT write `output/<slug>.deck-spec.json` itself. `deck-spec.json` must be produced by `slidev-assembler`.
 - The orchestration skill MUST run the review phase through `slidev-reviewer` before presenting the job as complete.
 - The orchestration skill MUST run the export phase through `slidev-exporter` and must not claim completion based on `slides.md` alone.
 - A job is considered complete only when exported artifacts exist in `output/`, or when the response explicitly says which required phase failed and why.
@@ -32,11 +34,13 @@ Use $slidev-orchestrator to create a 10-slide presentation about microservices a
 ## File Structure
 
 - `slides.md` — generated presentation entry point
+- `schemas/deck-spec.schema.json` — machine-readable schema for editable PPTX export
 - `components/` — custom Vue components (StatCard, Timeline, ComparisonTable, ImageGrid, SectionNumber)
 - `layouts/` — custom layouts (hero-center, stat-grid, side-by-side, full-image)
 - `styles/` — global styles
 - `public/` — static assets and generated SVG files
-- `output/` — exported PDF, PPTX, and PNG files
+- `output/` — exported PDF, editable PPTX, PNG files, and deck specs
+- `scripts/` — all repo-local executable scripts, including the native PPTX pipeline under `scripts/native-pptx/`
 
 ## Available Themes
 
@@ -49,7 +53,7 @@ Use $slidev-orchestrator to create a 10-slide presentation about microservices a
 ## Export Commands
 
 - `bun run export:pdf` — export to PDF
-- `bun run export:pptx` — export to PPTX
+- `bun run export:pptx` — export to editable PPTX
 - `bun run export:png` — export individual slides as PNG to `./output/<presentation-name>/`
 - `bun run export:all` — export all formats
 

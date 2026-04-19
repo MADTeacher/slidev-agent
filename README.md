@@ -2,7 +2,7 @@
 
 **Slidev Agent** — это мультиагентная система, которая автоматически создаёт презентации дизайнерского качества на основе текстового описания. Система использует [Slidev](https://sli.dev/) (презентационный фреймворк на Vue/Markdown) и состоит из shared-skill оркестрации и 8 специализированных worker-агентов, работающих по конвейерному принципу.
 
-Вы описываете тему и стиль — система сама исследует контент, подбирает layouts, генерирует SVG-иллюстрации и Mermaid-диаграммы, собирает финальный `slides.md`, проверяет качество и экспортирует в PDF/PPTX/PNG.
+Вы описываете тему и стиль — система сама исследует контент, подбирает layouts, генерирует SVG-иллюстрации и Mermaid-диаграммы, собирает финальный `slides.md`, пишет `output/<slug>.deck-spec.json`, проверяет качество и экспортирует в PDF/editable-PPTX/PNG.
 
 ---
 
@@ -80,7 +80,7 @@ bunx playwright install chromium
 | Сценарий | Bun | Node.js | Codex/OpenCode | Chromium через Playwright |
 |----------|-----|---------|----------------|---------------------------|
 | Генерация структуры и `slides.md` | ✅ | ✅ | ✅ | — |
-| Генерация + экспорт PDF/PPTX/PNG | ✅ | ✅ | ✅ | ✅ |
+| Генерация + экспорт PDF/editable-PPTX/PNG | ✅ | ✅ | ✅ | ✅ |
 | Локальный просмотр через `bun run dev` | ✅ | ✅ | — | — |
 
 ### Базовая установка
@@ -122,7 +122,8 @@ bunx playwright install chromium
   "permission": {
     "skill": {
       "slidev-orchestrator": "allow",
-      "slidev-presentation": "allow"
+      "slidev-presentation": "allow",
+      "slidev-editable-pptx": "allow"
     }
   }
 }
@@ -166,7 +167,7 @@ max_threads = 6
 max_depth = 1
 
 [sandbox_workspace_write]
-writable_roots = ["./output", "./public"]
+writable_roots = [".", "./output", "./public"]
 ```
 
 ### Запуск
@@ -245,9 +246,10 @@ Use $slidev-orchestrator to create a 12-slide presentation about Flutter. Dark t
 После выполнения пайплайна в проекте появятся:
 
 - `slides.md` — исходник презентации (Slidev Markdown)
+- `output/<slug>.deck-spec.json` — machine-readable spec для editable PPTX
 - `public/*.svg` — сгенерированные SVG-иллюстрации
 - `output/*.pdf` — экспорт в PDF
-- `output/*.pptx` — экспорт в PPTX
+- `output/*.pptx` — editable PowerPoint
 - `output/<name>/` — PNG каждого слайда
 
 ### Просмотр и редактирование в реальном времени
@@ -287,7 +289,7 @@ bun run dev
                        │
 ┌──────────────────────▼──────────────────────────────┐
 │  Фаза 3: Сборка + стилизация (последовательно)       │
-│  1. assembler → slides.md                             │
+│  1. assembler → slides.md + deck-spec.json           │
 │  2. stylist  → анимации, переходы, CSS-полировка     │
 └──────────────────────┬──────────────────────────────┘
                        │
@@ -299,7 +301,8 @@ bun run dev
                        │
 ┌──────────────────────▼──────────────────────────────┐
 │  Фаза 5: Экспорт (exporter)                          │
-│  • PDF, PPTX, PNG                                    │
+│  • PDF, editable PPTX, PNG                           │
+│  • Legacy raster PPTX — отдельный fallback path      │
 │  • Автоматическая коррекция пустой первой страницы   │
 └─────────────────────────────────────────────────────┘
 ```
@@ -316,10 +319,10 @@ bun run dev
 | **slidev-layout-designer** | Подбор layout, темы, визуального дизайна | Subagent |
 | **slidev-illustrator** | Создание SVG-иллюстраций | Subagent |
 | **slidev-diagrammer** | Создание Mermaid-диаграмм | Subagent |
-| **slidev-assembler** | Сборка финального `slides.md` из частей | Subagent |
+| **slidev-assembler** | Сборка финального `slides.md` и `deck-spec.json` | Subagent |
 | **slidev-stylist** | Анимации, переходы, CSS-полировка | Subagent |
 | **slidev-reviewer** | Проверка качества и корректности | Subagent |
-| **slidev-exporter** | Экспорт в PDF/PPTX/PNG | Subagent |
+| **slidev-exporter** | Экспорт в PDF/editable-PPTX/PNG | Subagent |
 
 ---
 
@@ -328,6 +331,8 @@ bun run dev
 ```
 slidev_agent/
 ├── slides.md                  # Сгенерированная презентация (Slidev Markdown)
+├── schemas/
+│   └── deck-spec.schema.json  # Схема для machine-readable deck spec
 ├── package.json               # Зависимости и скрипты экспорта
 ├── opencode.json              # Конфигурация opencode
 ├── AGENTS.md                  # Краткое описание архитектуры для AI
@@ -355,6 +360,9 @@ slidev_agent/
 │       ├── slidev-orchestrator/
 │       │   ├── SKILL.md       # Оркестрация полного пайплайна
 │       │   └── agents/openai.yaml
+│       ├── slidev-editable-pptx/
+│       │   ├── SKILL.md       # Локальный editable PowerPoint export
+│       │   └── agents/openai.yaml
 │       └── slidev-presentation/
 │           └── SKILL.md       # Справочник по синтаксису Slidev
 │
@@ -377,11 +385,14 @@ slidev_agent/
 ├── public/                    # Статические файлы и SVG
 │   └── .gitkeep
 │
-├── output/                    # Результаты экспорта
+├── output/                    # Результаты экспорта и deck specs
 │   └── .gitkeep
 │
 └── scripts/
-    └── fix-export.mjs         # Исправление пустой первой страницы
+    ├── deck-spec.mjs          # Загрузка и проверка deck spec
+    ├── export-slidev.mjs
+    ├── fix-export.mjs         # Исправление пустой первой страницы
+    └── validate-deck-spec.mjs
 ```
 
 ---
@@ -462,10 +473,12 @@ slidev_agent/
 
 ```bash
 bun run export:pdf    # → ./output/<name>.pdf
-bun run export:pptx   # → ./output/<name>.pptx
+bun run export:pptx   # → ./output/<name>.pptx (editable)
 bun run export:png    # → ./output/<name>/1.png, 2.png, ...
-bun run export:all    # Все три формата
+bun run export:all    # Все поддерживаемые форматы
 ```
+
+`bun run export:pptx` использует локальный native builder из `scripts/native-pptx/` и `output/<slug>.deck-spec.json`, чтобы создавать редактируемый PowerPoint.
 
 Это единственный поддерживаемый путь экспорта в проекте. Не запускайте raw `slidev export` или `npx slidev export` напрямую: они обходят зафиксированные project settings и post-processing через `scripts/fix-export.mjs`.
 
@@ -505,6 +518,10 @@ bunx playwright install chromium
 
 Это известный баг `Slidev v52.x`. Проект обходит его через `scripts/fix-export.mjs`, который автоматически вызывается из `bun run export:pdf` и `bun run export:png`.
 
+### PPTX экспорт не находит deck spec
+
+`bun run export:pptx` требует `output/<slug>.deck-spec.json`, созданный обновлённым `slidev-assembler`. Если файла нет, пересоберите презентацию через актуальный пайплайн.
+
 ### В логах установки мелькают darwin/macOS/Apple-пакеты
 
 Это нормально для кроссплатформенных JS-зависимостей. В `bun.lock` могут присутствовать optional packages для `darwin`, `linux` и `win32` одновременно. Их наличие в логах не означает, что Windows требует macOS-зависимости.
@@ -525,7 +542,7 @@ bunx playwright install chromium
 > **Любое изменение в агенте, навыке или конфигурации необходимо применять в ОБОИХ директориях одновременно.**
 
 - **Worker-агенты**: `.opencode/agents/*.md` ↔ `.codex/agents/*.toml` — описания, инструкции и права доступа должны совпадать
-- **Навыки**: `.agents/skills/*/SKILL.md` — общие для обеих систем, включая `slidev-orchestrator` и `slidev-presentation`
+- **Навыки**: `.agents/skills/*/SKILL.md` — общие для обеих систем, включая `slidev-orchestrator`, `slidev-presentation` и `slidev-editable-pptx`
 - **Инструменты**: `.opencode/tools/*.ts` — только для opencode (Codex не поддерживает кастомные инструменты)
 
 ---
@@ -558,7 +575,7 @@ bunx playwright install chromium
 
 ### Изменение скриптов экспорта
 
-1. Обновите `scripts/fix-export.mjs`
+1. Обновите `scripts/fix-export.mjs`, `scripts/export-slidev.mjs` или native builder в `scripts/native-pptx/`
 2. Обновите команды в `package.json`
 3. При необходимости — обновите `.opencode/tools/slidev-export.ts`
 
@@ -568,6 +585,7 @@ bunx playwright install chromium
 
 - **Slidev v52.x**: пустая первая страница при экспорте — обходится через `scripts/fix-export.mjs`
 - **PNG-экспорт**: требует `--wait-until networkidle`, иначе директория может оказаться пустой
+- **Editable PPTX**: опирается на `deck-spec.json` и native builder, а не на обратный парсинг `slides.md`
 - **v-click**: не используйте директиву `v-click` в слайдах, предназначенных для экспорта — она создаёт промежуточные «пустые» фреймы
 - **transition: fade** на обложке: анимация может быть поймана скриншотом в середине перехода
 

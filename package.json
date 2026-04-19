@@ -5,17 +5,20 @@
   "scripts": {
     "dev": "slidev slides.md --port 3030",
     "build": "slidev build slides.md",
-    "export:pdf": "slidev export slides.md --output ./output/illness-and-pharmacy-lesson.pdf --timeout 60000 --wait 1500 && node scripts/fix-export.mjs --pdf",
-    "export:pptx": "slidev export slides.md --format pptx --output ./output/illness-and-pharmacy-lesson.pptx --timeout 120000 --wait 1500 --wait-until load",
-    "export:png": "slidev export slides.md --format png --output ./output/illness-and-pharmacy-lesson --timeout 120000 --wait 1500 --wait-until networkidle && node scripts/fix-export.mjs --png",
-    "export:all": "bun run export:pdf && bun run export:pptx && bun run export:png"
+    "validate:deck-spec": "node scripts/validate-deck-spec.mjs",
+    "export:pdf": "node scripts/export-slidev.mjs --format pdf",
+    "export:pptx": "node scripts/native-pptx/build-deck-native.mjs",
+    "export:png": "node scripts/export-slidev.mjs --format png",
+    "export:all": "bun run export:pdf && bun run export:png && bun run export:pptx"
   },
   "devDependencies": {
+    "ajv": "^8.18.0",
     "@slidev/cli": "^52.14.0",
     "@slidev/theme-default": "^0.25.0",
     "@slidev/theme-seriph": "^0.25.0",
     "@slidev/theme-apple-basic": "^0.25.0",
     "@slidev/theme-bricks": "^0.25.0",
+    "pptxgenjs": "^4.0.1",
     "slidev-theme-dracula": "^0.2.0",
     "playwright-chromium": "^1.52.0"
   }

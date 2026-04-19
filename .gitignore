@@ -9,7 +9,12 @@ slidev-dist/
 slides-export.pdf
 output/*.pdf
 output/*.pptx
+output/*.md
+output/*.json
 output/*/
+public/*.svg
+tmp/
+slides.md
 
 # generated
 index.ts

@@ -17,6 +17,7 @@ The pipeline below is mandatory whenever this skill is invoked.
 - Delegate work to the project's existing `slidev-*` worker agents using the host runtime's native subagent/task mechanism.
 - Do not replace required worker phases with manual work by the root agent.
 - Do not write `slides.md` yourself. Only `slidev-assembler` may create the deck file.
+- Do not write `output/<slug>.deck-spec.json` yourself. Only `slidev-assembler` may create the deck spec.
 - Do not mark the task complete after planning, research, or assembly alone. Completion requires review plus export.
 - Do not treat `slides.md` as the final deliverable. Final deliverables are the exported artifacts in `output/`.
 - Use only `bun run export:*` scripts for export. Do not call raw `slidev export` or `npx slidev export`.
@@ -87,7 +88,7 @@ Do not assemble or restyle the deck yourself.
 
 ## Phase 4: Review
 
-Launch `slidev-reviewer` with the final `slides.md`.
+Launch `slidev-reviewer` with the final `slides.md` and `output/<slug>.deck-spec.json`.
 
 - If review passes, continue to export.
 - If review fails, send the issues to `slidev-stylist` for fixes.
@@ -98,7 +99,7 @@ Do not skip review.
 
 ## Phase 5: Export
 
-Launch `slidev-exporter` to produce PDF, PPTX, and PNG artifacts.
+Launch `slidev-exporter` to produce PDF, editable PPTX, and PNG artifacts. Legacy raster PPTX is optional fallback only.
 
 Do not skip export. The job is complete only when export finishes successfully or you explicitly report which phase failed.
 

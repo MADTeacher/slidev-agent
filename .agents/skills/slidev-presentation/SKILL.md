@@ -423,10 +423,15 @@ Before starting work on a **new** presentation, you MUST clean stale assets from
 
 ```bash
 bun run export:pdf    # PDF to ./output/microservices.pdf
-bun run export:pptx   # PPTX to ./output/microservices.pptx
+bun run export:pptx   # Editable PPTX to ./output/microservices.pptx
 bun run export:png    # PNG slides to ./output/microservices/1.png, 2.png, ...
-bun run export:all    # All three formats
+bun run export:all    # All supported formats
 ```
+
+### Editable PPTX Contract
+
+- `bun run export:pptx` now builds the default PowerPoint artifact from `output/<slug>.deck-spec.json`.
+- The deck spec must exist and satisfy `schemas/deck-spec.schema.json`.
 
 ### ⚠️ CRITICAL: Slidev v52.x Blank First Page Bug
 
