@@ -1,7 +1,0 @@
-interface:
-  display_name: "Slidev Orchestrator"
-  short_description: "Run the full Slidev deck generation pipeline"
-  default_prompt: "Use $slidev-orchestrator to generate and export a Slidev presentation from this prompt."
-
-policy:
-  allow_implicit_invocation: false

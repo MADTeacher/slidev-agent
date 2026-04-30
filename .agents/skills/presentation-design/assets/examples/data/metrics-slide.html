@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Слайд с метриками</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; }
+  body {
+    font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    background: #10131a;
+    color: #f3f0e8;
+  }
+  .slide {
+    width: 1920px;
+    height: 1080px;
+    padding: 86px 96px;
+    background:
+      radial-gradient(circle at 84% 18%, rgba(96, 167, 255, 0.18), transparent 32%),
+      #10131a;
+  }
+  .top {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 92px;
+    align-items: end;
+    border-bottom: 1px solid rgba(243,240,232,0.24);
+    padding-bottom: 52px;
+  }
+  .eyebrow {
+    font-size: 24px;
+    color: #89a2c7;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  h1 {
+    margin: 24px 0 0;
+    font-size: 86px;
+    line-height: 1;
+    max-width: 880px;
+  }
+  .takeaway {
+    font-size: 32px;
+    line-height: 1.35;
+    color: #cfd7e6;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 54px;
+  }
+  .card {
+    min-height: 430px;
+    border: 1px solid rgba(243,240,232,0.18);
+    padding: 36px;
+    background: rgba(255,255,255,0.04);
+  }
+  .label { color: #aebbd1; font-size: 24px; }
+  .value {
+    margin-top: 38px;
+    font-size: 92px;
+    line-height: 1;
+    font-weight: 720;
+  }
+  .unit { font-size: 36px; color: #89a2c7; }
+  .bar {
+    margin-top: 60px;
+    height: 16px;
+    background: rgba(243,240,232,0.14);
+  }
+  .fill { height: 100%; background: #f0b35a; }
+  .note {
+    margin-top: 34px;
+    font-size: 24px;
+    line-height: 1.4;
+    color: #cfd7e6;
+  }
+  .footnote {
+    margin-top: 42px;
+    color: #7f8ca3;
+    font-size: 20px;
+  }
+</style>
+</head>
+<body>
+  <section class="slide" data-slide-validate>
+    <div class="top">
+      <div>
+        <div class="eyebrow">Пример слайда с данными</div>
+        <h1>Рост держится на двух устойчивых каналах</h1>
+      </div>
+      <div class="takeaway">Покажите главный вывод до таблицы: аудитория сначала понимает смысл, потом проверяет цифры.</div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="label">Новые пользователи</div>
+        <div class="value">+18<span class="unit">%</span></div>
+        <div class="bar"><div class="fill" style="width: 72%;"></div></div>
+        <div class="note">Основной вклад дает органический канал.</div>
+      </div>
+      <div class="card">
+        <div class="label">Конверсия в оплату</div>
+        <div class="value">6.4<span class="unit">%</span></div>
+        <div class="bar"><div class="fill" style="width: 54%;"></div></div>
+        <div class="note">Пороговая метрика требует отдельного плана.</div>
+      </div>
+      <div class="card">
+        <div class="label">Удержание 30 дней</div>
+        <div class="value">41<span class="unit">%</span></div>
+        <div class="bar"><div class="fill" style="width: 64%;"></div></div>
+        <div class="note">Стабильно, но есть риск просадки в новом сегменте.</div>
+      </div>
+    </div>
+    <div class="footnote">Данные в примере условные. Замените источником, периодом и методикой расчета.</div>
+  </section>
+</body>
+</html>

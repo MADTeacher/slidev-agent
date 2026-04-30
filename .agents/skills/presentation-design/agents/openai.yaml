@@ -1,0 +1,7 @@
+interface:
+  display_name: "Дизайн презентаций"
+  short_description: "Создание, проверка и экспорт HTML-first презентаций."
+  default_prompt: "Используй $presentation-design, чтобы создать HTML-first презентацию и экспортировать запрошенные артефакты."
+
+policy:
+  allow_implicit_invocation: false

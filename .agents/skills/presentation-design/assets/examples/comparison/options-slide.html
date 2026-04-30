@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сравнение вариантов</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; }
+  body {
+    font-family: -apple-system, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+    background: #fbfaf7;
+    color: #161616;
+  }
+  .slide {
+    width: 1920px;
+    height: 1080px;
+    padding: 84px 96px;
+  }
+  header {
+    display: grid;
+    grid-template-columns: 1fr 520px;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 58px;
+  }
+  h1 {
+    margin: 0;
+    font-size: 82px;
+    line-height: 1.02;
+    max-width: 1060px;
+  }
+  .summary {
+    font-size: 28px;
+    line-height: 1.36;
+    color: #5a5a5a;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .option {
+    min-height: 680px;
+    border: 1px solid #d8d4ca;
+    padding: 34px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    background: #fff;
+  }
+  .option.recommended {
+    border: 4px solid #245dff;
+  }
+  .tag {
+    width: fit-content;
+    padding: 8px 12px;
+    border: 1px solid #d8d4ca;
+    color: #5a5a5a;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  h2 {
+    margin: 34px 0 0;
+    font-size: 42px;
+    line-height: 1.12;
+  }
+  ul {
+    margin: 42px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 24px;
+    font-size: 25px;
+    line-height: 1.3;
+  }
+  li {
+    padding-top: 18px;
+    border-top: 1px solid #ece8df;
+  }
+  .score {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 42px;
+  }
+  .score div {
+    background: #f0eee8;
+    padding: 16px;
+    min-height: 96px;
+  }
+  .score span {
+    display: block;
+    color: #6a6a6a;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .score strong { font-size: 28px; }
+</style>
+</head>
+<body>
+  <section class="slide" data-slide-validate>
+    <header>
+      <h1>Три варианта решения отличаются риском, скоростью и контролем</h1>
+      <div class="summary">Хороший слайд сравнения помогает принять решение, а не просто перечислить свойства.</div>
+    </header>
+
+    <div class="grid">
+      <article class="option">
+        <div class="tag">Вариант А</div>
+        <h2>Быстрый запуск</h2>
+        <ul>
+          <li>Минимальный объем разработки.</li>
+          <li>Подходит для проверки спроса.</li>
+          <li>Позже потребуется миграция.</li>
+        </ul>
+        <div class="score">
+          <div><span>Срок</span><strong>2 нед.</strong></div>
+          <div><span>Риск</span><strong>Выс.</strong></div>
+          <div><span>Контроль</span><strong>Низк.</strong></div>
+        </div>
+      </article>
+      <article class="option recommended">
+        <div class="tag">Рекомендация</div>
+        <h2>Сбалансированная сборка</h2>
+        <ul>
+          <li>Достаточно быстро для квартальной цели.</li>
+          <li>Сохраняет контроль над критичными данными.</li>
+          <li>Масштабируется без полной переделки.</li>
+        </ul>
+        <div class="score">
+          <div><span>Срок</span><strong>5 нед.</strong></div>
+          <div><span>Риск</span><strong>Сред.</strong></div>
+          <div><span>Контроль</span><strong>Выс.</strong></div>
+        </div>
+      </article>
+      <article class="option">
+        <div class="tag">Вариант С</div>
+        <h2>Полная платформа</h2>
+        <ul>
+          <li>Максимальная гибкость.</li>
+          <li>Нужна отдельная команда поддержки.</li>
+          <li>Слишком длинный путь до первого эффекта.</li>
+        </ul>
+        <div class="score">
+          <div><span>Срок</span><strong>12 нед.</strong></div>
+          <div><span>Риск</span><strong>Сред.</strong></div>
+          <div><span>Контроль</span><strong>Макс.</strong></div>
+        </div>
+      </article>
+    </div>
+  </section>
+</body>
+</html>

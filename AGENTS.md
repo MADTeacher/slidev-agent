@@ -1,77 +1,95 @@
-# Slidev Presentation Generator
+# Генератор HTML-first презентаций
 
-This project generates designer-quality presentations using Slidev.
+Проект создаёт презентации дизайнерского качества из HTML-исходников и экспортирует их в PNG, PDF, редактируемый PPTX и безопасные SVG-ассеты.
 
-## Architecture
+## Архитектура
 
-Skill-first orchestration with worker subagents:
-- `slidev-orchestrator` (shared skill) — loaded by the native/root agent to plan, delegate, review, and export
-- `slidev-editable-pptx` (shared skill) — project-local editable PowerPoint export for approved decks
-- 8 specialized worker subagents handle content, design, SVG, diagrams, assembly, styling, review, and export
+Единственный общий навык — `presentation-design`. Он задаёт контракт процесса, справочники, шаблоны и локальные скрипты экспорта.
 
-## Mandatory Execution Rules
+Полное создание презентации использует шесть рабочих субагентов:
 
-When the user explicitly invokes the `slidev-orchestrator` skill, or asks for the full presentation pipeline, the orchestration workflow is **mandatory**. It is not optional guidance.
+- `presentation-researcher` — факты, сюжет, план слайдов, заглушки и замысел заметок докладчика;
+- `presentation-asset-builder` — брендовые и содержательные материалы, манифесты защищённых визуалов, SVG и схемы;
+- `presentation-direction-designer` — двухслайдовое визуальное направление и дизайн-система;
+- `presentation-html-builder` — итоговый HTML-исходник, общие CSS/компоненты и исправления после проверки;
+- `presentation-qa-reviewer` — браузерные проверки, свежий PNG-экспорт и последовательный `exports/slide-qa.md`;
+- `presentation-exporter` — финальные PDF, PNG, редактируемый PPTX и безопасные SVG-артефакты.
 
-- The native/root agent MUST load and execute the `slidev-orchestrator` skill, not replace it with manual single-agent execution.
-- The orchestration skill MUST delegate work to the specialized subagents defined by the project. It MUST NOT skip delegation just because the root agent can do the work itself.
-- The orchestration skill MUST NOT write `slides.md` itself. `slides.md` must be produced by `slidev-assembler`.
-- The orchestration skill MUST NOT write `output/<slug>.deck-spec.json` itself. `deck-spec.json` must be produced by `slidev-assembler`.
-- The orchestration skill MUST run the review phase through `slidev-reviewer` before presenting the job as complete.
-- The orchestration skill MUST run the export phase through `slidev-exporter` and must not claim completion based on `slides.md` alone.
-- A job is considered complete only when exported artifacts exist in `output/`, or when the response explicitly says which required phase failed and why.
-- Manual “shortcut” execution by the root agent is a workflow violation, not an acceptable fallback.
-- If any required subagent cannot run, the agent must stop and report the blocked phase instead of silently doing that phase itself.
-- If the user request explicitly names an orchestrator or subagent, treat that as a binding routing instruction, not as a preference.
+## Обязательные правила выполнения
 
-## Usage
+Когда пользователь вызывает `$presentation-design`, просит полный презентационный процесс или новую колоду, готовую к экспорту, оркестрация обязательна.
 
-Invoke the orchestration skill explicitly from the native/root agent:
+- Главный агент обязан загрузить и выполнить `presentation-design`.
+- Главный агент обязан делегировать нужные фазы шести проектным субагентам.
+- Главный агент обязан остановиться и сообщить заблокированную фазу, если нужный субагент не может запуститься.
+- Главный агент не должен молча заменять обязательные рабочие фазы ручным выполнением одним агентом.
+- Итоговый HTML-исходник должен быть создан `presentation-html-builder`.
+- Итоговую браузерную/PNG-проверку должен выполнить `presentation-qa-reviewer`.
+- Итоговые экспорты должен создать `presentation-exporter`.
+- Работа считается завершённой только тогда, когда запрошенные артефакты лежат в `presentations/<slug>/exports/`, а `exports/slide-qa.md` фиксирует чистый свежий PNG-проход.
+- Если пользователь явно называет субагента, считайте это обязательным указанием маршрутизации.
+
+## Контракт рабочей директории
+
+Каждая презентация живёт здесь:
+
+```text
+presentations/<slug>/
+├── package.json
+├── asset-manifest.json
+├── assets/
+├── slides/
+├── scripts/
+└── exports/
 ```
-Use $slidev-orchestrator to create a 10-slide presentation about microservices architecture in a dark minimal style
+
+Папка презентации самодостаточна. Перед проверками или экспортом скопируйте весь каталог `scripts/` навыка в `presentations/<slug>/scripts/`.
+
+Команды экспорта запускаются изнутри папки презентации:
+
+```bash
+node scripts/export_deck_png.mjs --slides slides --out exports/png
+node scripts/export_deck_pdf.mjs --slides slides --out exports/deck.pdf
+node scripts/export_deck_pptx.mjs --slides slides --out exports/deck.pptx
+node scripts/export_deck_stage_png.mjs --html deck.html --out exports/png --slides 12
+node scripts/export_deck_stage_pdf.mjs --html deck.html --out exports/deck.pdf
 ```
 
-## File Structure
+Не используйте сгенерированные файлы презентаций или папки экспорта в корне репозитория как источник истины.
 
-- `slides.md` — generated presentation entry point
-- `schemas/deck-spec.schema.json` — machine-readable schema for editable PPTX export
-- `components/` — custom Vue components (StatCard, Timeline, ComparisonTable, ImageGrid, SectionNumber)
-- `layouts/` — custom layouts (hero-center, stat-grid, side-by-side, full-image)
-- `styles/` — global styles
-- `public/` — static assets and generated SVG files
-- `output/` — exported PDF, editable PPTX, PNG files, and deck specs
-- `scripts/` — all repo-local executable scripts, including the native PPTX pipeline under `scripts/native-pptx/`
+## Обязательные ворота качества
 
-## Available Themes
+Перед финальной сдачей:
 
-- `seriph` — clean minimal (default)
-- `apple-basic` — Apple-style simplicity
-- `default` — standard Slidev theme
-- `bricks` — structured brick layout
-- `dracula` — dark purple theme
+- `asset-manifest.json` должен существовать, даже если `visuals` пуст.
+- Защищённые визуалы должны пройти проверку манифеста, иначе нужно остановиться с понятным блокером.
+- Каждый слайд должен быть экспортирован в свежий PNG.
+- `exports/slide-qa.md` должен содержать по одной строке на каждый PNG-слайд в правильном порядке.
+- Финальный проход проверки должен быть чистым после последнего изменения исходника.
+- Редактируемый PPTX должен следовать `references/pptx-authoring.md`.
 
-## Export Commands
+## Синхронизация двух рантаймов
 
-- `bun run export:pdf` — export to PDF
-- `bun run export:pptx` — export to editable PPTX
-- `bun run export:png` — export individual slides as PNG to `./output/<presentation-name>/`
-- `bun run export:all` — export all formats
+Проект поддерживает две агентские системы:
 
-**CRITICAL:** Slidev v52.x has a confirmed bug where exports always generate a blank first page/frame. The project includes `scripts/fix-export.mjs` which is automatically invoked after `export:pdf` and `export:png` to remove the blank page and shift PNG numbering. Do NOT run raw `slidev export` directly — always use the `bun run export:*` scripts.
+- `.opencode/` — определения агентов и инструменты OpenCode;
+- `.codex/` — определения агентов и конфигурация Codex;
+- `.agents/skills/` — общий каталог навыка.
 
-## Dual-Agent Configuration Sync
+Любое изменение рабочих ролей, общего навыка, справочников инструментов, команд экспорта или правил оркестрации должно оставаться синхронизированным в обоих рантаймах.
 
-This project uses TWO agent systems in parallel:
+Держите синхронно:
 
-- `.opencode/` — configuration for opencode CLI (agents as `.md`, tools as `.ts`)
-- `.codex/` — configuration for OpenAI Codex (agents as `.toml`, config as `config.toml`)
-- `.agents/skills/` — shared skills directory, discovered by both opencode and Codex
+- `.opencode/agents/presentation-*.md`
+- `.codex/agents/presentation-*.toml`
+- `.agents/skills/presentation-design/SKILL.md`
+- `.agents/skills/presentation-design/references/subagents.md`
+- `.opencode/tools/presentation-export.ts`
 
-**CRITICAL RULE: Any change to shared worker agents, shared skills, or tooling references MUST stay synchronized across both runtimes.** This includes:
+## Использование
 
-- **Worker agent definitions**: `.opencode/agents/*.md` ↔ `.codex/agents/*.toml` — keep instructions, descriptions, and permissions in sync for the 8 shared worker agents
-- **Skills**: `.agents/skills/*/SKILL.md` — shared between both systems (do NOT duplicate)
-- **Tools**: `.opencode/tools/*.ts` — opencode-specific
-- **Export scripts and tooling**: ensure both systems reference the same `bun run export:*` commands and the same orchestration skill contract
+Вызовите навык из главного агента:
 
-When modifying any agent, skill, or configuration, always update the counterpart to keep configurations identical.
+```text
+Используй $presentation-design, чтобы создать 10-слайдовую HTML-first презентацию об архитектуре микросервисов в тёмном минималистичном стиле. Экспортируй PDF и PNG.
+```

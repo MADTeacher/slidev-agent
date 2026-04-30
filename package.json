@@ -1,25 +1,14 @@
 {
-  "name": "slidev_agent",
+  "name": "html-first-presentation-agent",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "slidev slides.md --port 3030",
-    "build": "slidev build slides.md",
-    "validate:deck-spec": "node scripts/validate-deck-spec.mjs",
-    "export:pdf": "node scripts/export-slidev.mjs --format pdf",
-    "export:pptx": "node scripts/native-pptx/build-deck-native.mjs",
-    "export:png": "node scripts/export-slidev.mjs --format png",
-    "export:all": "bun run export:pdf && bun run export:png && bun run export:pptx"
+    "check:json": "python3 -m json.tool opencode.json >/dev/null"
   },
   "devDependencies": {
-    "ajv": "^8.18.0",
-    "@slidev/cli": "^52.14.0",
-    "@slidev/theme-default": "^0.25.0",
-    "@slidev/theme-seriph": "^0.25.0",
-    "@slidev/theme-apple-basic": "^0.25.0",
-    "@slidev/theme-bricks": "^0.25.0",
+    "pdf-lib": "^1.17.1",
+    "playwright": "^1.52.0",
     "pptxgenjs": "^4.0.1",
-    "slidev-theme-dracula": "^0.2.0",
-    "playwright-chromium": "^1.52.0"
+    "sharp": "^0.33.5"
   }
 }

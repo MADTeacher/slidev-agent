@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Направление · Product Keynote</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      background: #101215;
+      color: #f7f3ec;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .slide {
+      width: 1920px;
+      height: 1080px;
+      padding: 86px 106px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 70px;
+      align-items: center;
+    }
+    .copy {
+      z-index: 2;
+    }
+    .kicker {
+      margin: 0 0 34px;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #c4b292;
+    }
+    h1 {
+      margin: 0;
+      font-size: 96px;
+      line-height: 0.98;
+      font-weight: 700;
+      text-wrap: pretty;
+    }
+    .lead {
+      margin: 40px 0 0;
+      max-width: 650px;
+      font-size: 30px;
+      line-height: 1.38;
+      color: #d7d0c7;
+    }
+    .device {
+      justify-self: center;
+      width: 640px;
+      height: 740px;
+      border-radius: 46px;
+      background: linear-gradient(145deg, #22272f, #0a0c0f);
+      border: 2px solid rgba(255,255,255,0.16);
+      box-shadow: 0 46px 110px rgba(0,0,0,0.55);
+      padding: 38px;
+    }
+    .screen {
+      height: 100%;
+      border-radius: 30px;
+      background: #f8f6ef;
+      color: #111;
+      padding: 42px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 28px;
+    }
+    .screen h2 {
+      margin: 0;
+      font-size: 38px;
+      line-height: 1.1;
+    }
+    .ui-lines {
+      display: grid;
+      gap: 20px;
+      align-content: center;
+    }
+    .line {
+      height: 34px;
+      border-radius: 0;
+      background: #d7d9d5;
+    }
+    .line.accent {
+      background: #c46b3d;
+      width: 62%;
+    }
+    .pill {
+      justify-self: start;
+      padding: 14px 22px;
+      background: #111;
+      color: #fff;
+      font-size: 18px;
+    }
+    .asset-note {
+      position: absolute;
+      right: 106px;
+      bottom: 58px;
+      color: #9c958c;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <section class="slide" data-slide-validate>
+    <main class="copy">
+      <p class="kicker">Product Keynote · пример</p>
+      <h1>Покажите продукт раньше, чем объясняете обещание</h1>
+      <p class="lead">В реальной презентации этот макет должен заменить демонстрационный экран на настоящий материал продукта или интерфейса из `brand-spec.md`.</p>
+    </main>
+    <div class="device" aria-label="демонстрационная рамка продукта">
+      <div class="screen">
+        <h2>Экран продукта</h2>
+        <div class="ui-lines">
+          <div class="line accent"></div>
+          <div class="line"></div>
+          <div class="line" style="width: 74%"></div>
+          <div class="line" style="width: 86%"></div>
+        </div>
+        <div class="pill">Заменить на реальный интерфейс</div>
+      </div>
+    </div>
+    <p class="asset-note">В этом примере нет настоящего изображения продукта.</p>
+  </section>
+</body>
+</html>

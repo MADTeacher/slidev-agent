@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Векторный слайд процесса</title>
+  <desc id="desc">Нативный SVG-пример презентационного слайда с четырьмя этапами.</desc>
+  <rect width="1920" height="1080" fill="#f6f1e8"/>
+  <text x="112" y="148" fill="#171717" font-family="Arial, sans-serif" font-size="72" font-weight="700">Процесс принятия решения</text>
+  <text x="112" y="214" fill="#5b554c" font-family="Arial, sans-serif" font-size="30">Пример нативного SVG-слайда: формы, линии и текст остаются векторными.</text>
+  <line x1="210" y1="560" x2="1710" y2="560" stroke="#171717" stroke-width="4"/>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(144 430)">
+      <circle cx="96" cy="130" r="96" fill="#171717"/>
+      <text x="96" y="146" text-anchor="middle" fill="#fff" font-size="42" font-weight="700">01</text>
+      <text x="0" y="300" fill="#171717" font-size="34" font-weight="700">Бриф</text>
+      <text x="0" y="350" fill="#5b554c" font-size="24">цель, аудитория, формат</text>
+    </g>
+    <g transform="translate(574 430)">
+      <circle cx="96" cy="130" r="96" fill="#e46342"/>
+      <text x="96" y="146" text-anchor="middle" fill="#fff" font-size="42" font-weight="700">02</text>
+      <text x="0" y="300" fill="#171717" font-size="34" font-weight="700">История</text>
+      <text x="0" y="350" fill="#5b554c" font-size="24">логика и ключевые тезисы</text>
+    </g>
+    <g transform="translate(1004 430)">
+      <circle cx="96" cy="130" r="96" fill="#275dff"/>
+      <text x="96" y="146" text-anchor="middle" fill="#fff" font-size="42" font-weight="700">03</text>
+      <text x="0" y="300" fill="#171717" font-size="34" font-weight="700">Система</text>
+      <text x="0" y="350" fill="#5b554c" font-size="24">сетка, типографика, макеты</text>
+    </g>
+    <g transform="translate(1434 430)">
+      <circle cx="96" cy="130" r="96" fill="#171717"/>
+      <text x="96" y="146" text-anchor="middle" fill="#fff" font-size="42" font-weight="700">04</text>
+      <text x="0" y="300" fill="#171717" font-size="34" font-weight="700">Экспорт</text>
+      <text x="0" y="350" fill="#5b554c" font-size="24">PDF, PNG, PPTX или SVG</text>
+    </g>
+  </g>
+</svg>

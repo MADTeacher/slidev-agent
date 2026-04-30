@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Компактный презентационный SVG-ассет</title>
+  <desc id="desc">Безопасный стартовый холст для иконки, схемного маркера или декоративного векторного ассета презентации.</desc>
+  <defs>
+    <linearGradient id="assetGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="0.56" stop-color="#155e75"/>
+      <stop offset="1" stop-color="#facc15"/>
+    </linearGradient>
+    <radialGradient id="assetGlow" cx="48%" cy="38%" r="58%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.62"/>
+      <stop offset="0.5" stop-color="#67e8f9" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#0f172a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="assetShadow" x="-18%" y="-18%" width="136%" height="136%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="18"/>
+      <feOffset dx="0" dy="24" result="offsetBlur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" rx="96" fill="url(#assetGradient)"/>
+  <rect width="1024" height="1024" rx="96" fill="url(#assetGlow)"/>
+  <g id="main-mark" filter="url(#assetShadow)">
+    <circle cx="512" cy="512" r="244" fill="#ecfeff" opacity="0.16"/>
+    <path d="M334 560C382 390 642 346 728 518C654 505 594 532 550 596C504 662 420 666 334 560Z" fill="#fef3c7" opacity="0.92"/>
+    <path d="M374 548C438 482 506 470 584 510" fill="none" stroke="#0f172a" stroke-width="28" stroke-linecap="round" opacity="0.56"/>
+    <path d="M620 352L702 442L822 456L730 536L754 656L650 594L546 656L570 536L478 456L598 442Z" fill="#22d3ee" opacity="0.74"/>
+  </g>
+</svg>

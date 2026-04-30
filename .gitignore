@@ -1,20 +1,14 @@
-# dependencies (bun install)
-node_modules
+# dependencies
+node_modules/
+presentations/*/node_modules/
 
 # output
 out
 dist
 *.tgz
-slidev-dist/
-slides-export.pdf
-output/*.pdf
-output/*.pptx
-output/*.md
-output/*.json
-output/*/
-public/*.svg
+presentations/*/exports/
+presentations/*/tmp/
 tmp/
-slides.md
 
 # generated
 index.ts

@@ -3,9 +3,7 @@
   "default_agent": "build",
   "permission": {
     "skill": {
-      "slidev-orchestrator": "allow",
-      "slidev-presentation": "allow",
-      "slidev-editable-pptx": "allow"
+      "presentation-design": "allow"
     }
   }
 }

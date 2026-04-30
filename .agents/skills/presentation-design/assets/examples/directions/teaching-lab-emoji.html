@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Направление · Teaching Lab Emoji</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --paper: #fbfaf5;
+      --ink: #17212b;
+      --muted: #5f6872;
+      --line: #d9ded7;
+      --mint: #dff3e4;
+      --sky: #dcecff;
+      --lemon: #ffe9a8;
+      --coral: #f6c9bd;
+      --blue: #235789;
+      --emoji-sm: 38px;
+      --emoji-md: 58px;
+      --emoji-lg: 92px;
+      --emoji-xl: 132px;
+    }
+    body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .slide {
+      width: 1920px;
+      height: 1080px;
+      padding: 72px 96px;
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      grid-template-rows: auto 1fr auto;
+      gap: 42px 54px;
+      overflow: hidden;
+    }
+    .eyebrow {
+      grid-column: 1 / 3;
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .headline {
+      margin: 0;
+      font-size: 82px;
+      line-height: 1.02;
+      font-weight: 700;
+      text-wrap: pretty;
+    }
+    .lead {
+      width: 720px;
+      margin: 28px 0 0;
+      font-size: 30px;
+      line-height: 1.34;
+      color: #36414c;
+    }
+    .hero-cue {
+      width: 210px;
+      height: 210px;
+      margin: 58px 0 0;
+      display: grid;
+      place-items: center;
+      border: 2px solid #b8d3c0;
+      border-radius: 8px;
+      background: var(--mint);
+    }
+    .emoji {
+      display: inline-flex;
+      width: 1em;
+      height: 1em;
+      align-items: center;
+      justify-content: center;
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+      line-height: 1;
+    }
+    .emoji[data-size="sm"] { font-size: var(--emoji-sm); }
+    .emoji[data-size="md"] { font-size: var(--emoji-md); }
+    .emoji[data-size="lg"] { font-size: var(--emoji-lg); }
+    .emoji[data-size="xl"] { font-size: var(--emoji-xl); }
+    .steps {
+      align-self: stretch;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+    .step {
+      min-height: 236px;
+      padding: 30px 30px 26px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 22px;
+      align-content: start;
+    }
+    .step:nth-child(1) { background: var(--sky); }
+    .step:nth-child(2) { background: var(--lemon); }
+    .step:nth-child(3) { background: #fff; }
+    .step:nth-child(4) { background: var(--coral); }
+    .step h2 {
+      margin: 0 0 12px;
+      font-size: 30px;
+      line-height: 1.1;
+    }
+    .step p {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.36;
+      color: #43505d;
+    }
+    .practice {
+      grid-column: 1 / 3;
+      display: grid;
+      grid-template-columns: 1fr 0.7fr;
+      gap: 24px;
+      padding: 30px 34px;
+      border: 2px solid var(--blue);
+      border-radius: 8px;
+      background: #f7fbff;
+    }
+    .practice strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 32px;
+    }
+    .practice p {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.36;
+      color: #3e4a56;
+    }
+    .answer {
+      justify-self: end;
+      align-self: center;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+    footer {
+      grid-column: 1 / 3;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 18px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <section class="slide" data-slide-validate>
+    <p class="eyebrow">Teaching Lab · пример эмоджи-подсказок</p>
+    <div>
+      <h1 class="headline">Квадратное уравнение: сначала признак, потом действие</h1>
+      <p class="lead">Эмоджи работают как повторяемые учебные маркеры: идея, пример, практика и проверка.</p>
+      <div class="hero-cue" aria-hidden="true"><span class="emoji" data-size="xl">🧠</span></div>
+    </div>
+    <div class="steps">
+      <article class="step">
+        <span class="emoji" data-size="lg" aria-hidden="true">🔎</span>
+        <div><h2>Найди форму</h2><p>Приведи выражение к виду ax² + bx + c = 0 и проверь, что a не равно нулю.</p></div>
+      </article>
+      <article class="step">
+        <span class="emoji" data-size="lg" aria-hidden="true">✏️</span>
+        <div><h2>Подставь числа</h2><p>Запиши a, b и c отдельно, чтобы не потерять знак перед коэффициентом.</p></div>
+      </article>
+      <article class="step">
+        <span class="emoji" data-size="lg" aria-hidden="true">🧪</span>
+        <div><h2>Проверь дискриминант</h2><p>D подсказывает количество решений и помогает выбрать следующий шаг.</p></div>
+      </article>
+      <article class="step">
+        <span class="emoji" data-size="lg" aria-hidden="true">✅</span>
+        <div><h2>Сверь ответ</h2><p>Подставь корни обратно в исходное уравнение, если пример идет в контрольную.</p></div>
+      </article>
+      <div class="practice">
+        <div><strong>Мини-практика</strong><p>Для x² - 5x + 6 = 0 сначала назови a, b, c, а потом считай D.</p></div>
+        <div class="answer"><span class="emoji" data-size="sm" aria-hidden="true">💬</span><span>Ответ проговаривается вслух</span></div>
+      </div>
+    </div>
+    <footer><span>Шкала эмоджи: sm 38 / lg 92 / xl 132 px</span><span>Пример: перед сдачей заменить содержимое</span></footer>
+  </section>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Направление · Teaching Lab · предметное изображение</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --paper: #fbfaf5;
+      --ink: #17212b;
+      --muted: #596674;
+      --line: #d7ddd5;
+      --green: #2f6f4e;
+      --green-soft: #dff1e5;
+      --blue-soft: #dcecff;
+      --yellow-soft: #ffedb8;
+      --coral-soft: #f6d0c6;
+      --scale: 1;
+    }
+    html,
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+    .stage {
+      width: calc(1920px * var(--scale));
+      height: calc(1080px * var(--scale));
+      overflow: hidden;
+    }
+    .slide {
+      width: 1920px;
+      height: 1080px;
+      padding: 62px 86px 54px;
+      display: grid;
+      grid-template-columns: 520px 1fr;
+      grid-template-rows: auto 1fr auto;
+      gap: 30px 48px;
+      transform: scale(var(--scale));
+      transform-origin: top left;
+      overflow: hidden;
+    }
+    .eyebrow {
+      grid-column: 1 / 3;
+      margin: 0;
+      font-size: 20px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    h1 {
+      margin: 0;
+      font-size: 62px;
+      line-height: 1.04;
+      font-weight: 700;
+      text-wrap: pretty;
+    }
+    .lead {
+      margin: 22px 0 0;
+      font-size: 26px;
+      line-height: 1.34;
+      color: #344250;
+    }
+    .note,
+    .practice {
+      margin-top: 28px;
+      padding: 22px 24px;
+      border-radius: 8px;
+    }
+    .note {
+      border: 1px solid #b9d5c3;
+      background: var(--green-soft);
+    }
+    .note strong,
+    .practice strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 28px;
+      line-height: 1.14;
+    }
+    .note p,
+    .practice p {
+      margin: 0;
+      font-size: 21px;
+      line-height: 1.34;
+      color: #34473b;
+    }
+    .practice {
+      display: grid;
+      grid-template-columns: 1fr 72px;
+      gap: 18px;
+      align-items: center;
+      border: 2px solid var(--green);
+      background: #f8fcf9;
+    }
+    .cue {
+      width: 72px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--green-soft);
+      font-size: 48px;
+      line-height: 1;
+      font-weight: 700;
+      color: #122319;
+    }
+    .visual-board {
+      position: relative;
+      min-height: 738px;
+      border: 2px solid #b7c6b9;
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .image-card {
+      position: absolute;
+      left: 270px;
+      top: 92px;
+      width: 720px;
+      height: 500px;
+      border: 1px solid #cddbcf;
+      border-radius: 8px;
+      background: #f7faf3;
+      overflow: hidden;
+      box-shadow: 0 18px 42px rgba(30, 60, 38, 0.16);
+      z-index: 1;
+    }
+    .leaf-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .label {
+      position: absolute;
+      z-index: 3;
+      min-width: 245px;
+      padding: 18px 20px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 10px 26px rgba(40, 64, 48, 0.1);
+    }
+    .label b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 27px;
+      line-height: 1.12;
+    }
+    .label span {
+      display: block;
+      font-size: 19px;
+      line-height: 1.24;
+      color: var(--muted);
+    }
+    .label-one { left: 54px; top: 120px; background: var(--blue-soft); }
+    .label-two { right: 52px; top: 126px; background: var(--yellow-soft); }
+    .label-three { left: 92px; bottom: 92px; background: #fff; }
+    .label-four { right: 88px; bottom: 96px; background: var(--coral-soft); }
+    .callouts {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .callouts path {
+      fill: none;
+      stroke: var(--green);
+      stroke-width: 2.25;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .callouts circle {
+      fill: var(--green);
+      stroke: #fff;
+      stroke-width: 3;
+    }
+    footer {
+      grid-column: 1 / 3;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      font-size: 18px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <section class="slide" data-slide-validate>
+      <p class="eyebrow">Teaching Lab · предметное изображение и редактируемые подписи</p>
+      <div class="intro">
+        <h1>Строение листа: сначала увидеть, потом назвать</h1>
+        <p class="lead">Учебный слайд строится вокруг изображения. Подписи, стрелки и задание остаются отдельными слоями, чтобы их можно было править в HTML и PPTX.</p>
+        <div class="note">
+          <strong>Роль изображения</strong>
+          <p>Иллюстрация лежит отдельным PNG-файлом. В реальной презентации его можно заменить фотографией, схемой из источника или сгенерированным рисунком.</p>
+        </div>
+        <div class="practice">
+          <div>
+            <strong>Мини-задание</strong>
+            <p>Покажи черешок и объясни, почему подпись должна быть рядом с объектом, а не внутри картинки.</p>
+          </div>
+          <div class="cue" aria-hidden="true">✓</div>
+        </div>
+      </div>
+      <div class="visual-board" aria-label="Пример учебного слайда с предметным изображением">
+        <figure class="image-card">
+          <img class="leaf-image" src="../content/leaf-diagram.png" alt="Учебная иллюстрация листа без подписей" />
+        </figure>
+
+        <svg class="callouts" viewBox="0 0 1180 738" aria-hidden="true">
+          <path d="M 305 198 L 502 238"></path>
+          <circle cx="502" cy="238" r="6"></circle>
+          <path d="M 870 212 L 742 276"></path>
+          <circle cx="742" cy="276" r="6"></circle>
+          <path d="M 290 594 L 450 528"></path>
+          <circle cx="450" cy="528" r="6"></circle>
+          <path d="M 895 588 L 780 500"></path>
+          <circle cx="780" cy="500" r="6"></circle>
+        </svg>
+
+        <div class="label label-one"><b>Листовая пластинка</b><span>главная широкая часть листа</span></div>
+        <div class="label label-two"><b>Жилки</b><span>проводят воду и питательные вещества</span></div>
+        <div class="label label-three"><b>Черешок</b><span>соединяет лист со стеблем</span></div>
+        <div class="label label-four"><b>Край листа</b><span>помогает различать виды растений</span></div>
+      </div>
+      <footer><span>Изображение: отдельный PNG/JPG/WebP</span><span>Подписи и задание: редактируемый текст</span></footer>
+    </section>
+  </main>
+  <script>
+    function fitSlide() {
+      const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080, 1);
+      document.documentElement.style.setProperty('--scale', scale.toFixed(4));
+    }
+    window.addEventListener('resize', fitSlide);
+    fitSlide();
+  </script>
+</body>
+</html>

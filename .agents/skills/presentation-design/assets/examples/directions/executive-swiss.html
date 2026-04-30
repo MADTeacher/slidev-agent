@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Направление · Executive Swiss</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f7f2;
+      color: #111;
+    }
+    .slide {
+      width: 1920px;
+      height: 1080px;
+      padding: 86px 112px 76px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto 1fr auto;
+      gap: 28px;
+      overflow: hidden;
+    }
+    .kicker {
+      grid-column: 1 / 5;
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #525252;
+    }
+    h1 {
+      grid-column: 1 / 10;
+      margin: 120px 0 0;
+      font-size: 92px;
+      line-height: 0.98;
+      font-weight: 700;
+      text-wrap: pretty;
+    }
+    .summary {
+      grid-column: 1 / 6;
+      align-self: end;
+      margin: 0 0 24px;
+      font-size: 28px;
+      line-height: 1.35;
+      color: #303030;
+    }
+    .metrics {
+      grid-column: 8 / 13;
+      align-self: end;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border-top: 2px solid #111;
+      border-left: 1px solid #d5d5cb;
+    }
+    .metric {
+      min-height: 150px;
+      padding: 28px 30px;
+      border-right: 1px solid #d5d5cb;
+      border-bottom: 1px solid #d5d5cb;
+      background: rgba(255,255,255,0.42);
+    }
+    .metric strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 54px;
+      line-height: 1;
+      color: #0b4f6c;
+    }
+    .metric span {
+      font-size: 20px;
+      line-height: 1.35;
+      color: #4b4b4b;
+    }
+    footer {
+      grid-column: 1 / 13;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #bdbdb5;
+      padding-top: 18px;
+      font-size: 18px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <section class="slide" data-slide-validate>
+    <p class="kicker">Executive Swiss · пример</p>
+    <h1>Решение готово, но риск внедрения остается на двух узких местах</h1>
+    <p class="summary">Сдержанная сетка, заголовок-вывод и минимум цвета помогают быстро принять решение.</p>
+    <div class="metrics" aria-label="пример метрик">
+      <div class="metric"><strong>72%</strong><span>готовность процесса по внутренней оценке</span></div>
+      <div class="metric"><strong>2</strong><span>блокера требуют решения руководителя</span></div>
+      <div class="metric"><strong>Q3</strong><span>реалистичное окно запуска</span></div>
+      <div class="metric"><strong>1</strong><span>рекомендуемый следующий шаг</span></div>
+    </div>
+    <footer><span>Источник: демонстрационные данные, заменить перед сдачей</span><span>01 / 04</span></footer>
+  </section>
+</body>
+</html>

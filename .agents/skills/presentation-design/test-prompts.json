@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "prompt": "Сделай красивую презентацию про AI в образовании. Стиля нет, хочу 12 слайдов.",
+    "expected": "Не начинает шаблонную презентацию; уточняет аудиторию, цель и формат, затем предлагает 3 контрастных визуальных направления из разных семейств перед проверкой стиля на двух слайдах.",
+    "tests": "workflow.md + design-directions.md + design.md"
+  },
+  {
+    "id": 2,
+    "prompt": "Сделай продуктовую keynote-презентацию для бренда Acme Phone. Материалов пока нет.",
+    "expected": "Срабатывает обязательная проверка материалов: агент просит логотип и изображения продукта, предлагает проверить официальные источники, фиксирует необходимость brand-spec.md и не делает шаблонную обложку без исходных материалов.",
+    "tests": "brand-assets.md + workflow.md"
+  },
+  {
+    "id": 3,
+    "prompt": "Сделай презентацию для инвесторов на 10 слайдов для AI-продукта. Нужны HTML и редактируемый PPTX.",
+    "expected": "Уточняет аудиторию, цель, логику рассказа, материалы и формат; выбирает HTML с ограничениями из-за PPTX; сначала делает направление на двух слайдах; проверяет PNG и редактируемость PPTX.",
+    "tests": "workflow.md + pptx-authoring.md + html-decks.md"
+  },
+  {
+    "id": 4,
+    "prompt": "Покажи 3 варианта обложки и одного контентного слайда для лекции.",
+    "expected": "Использует design-directions.md и design_canvas для сравнения; варианты отличаются не только цветом, но и логикой рассказа, плотностью, сеткой, типографикой и визуальными доказательствами.",
+    "tests": "design-directions.md + workflow variants + design_canvas"
+  },
+  {
+    "id": 5,
+    "prompt": "Проведи жесткое ревью презентации и скажи, почему ее стыдно показывать руководству.",
+    "expected": "Использует экспертную проверку презентации: оценки 0-10 по 6 критериям и ответ с разделами Сохранить / Исправить сначала / Быстрые улучшения / Риски экспорта.",
+    "tests": "deck-review.md"
+  },
+  {
+    "id": 6,
+    "prompt": "Переделай существующий доклад в HTML-презентацию и PDF, брендовые материалы лежат в папке assets.",
+    "expected": "Ищет локальные материалы, собирает brand-spec.md, выбирает направление, проверяет стиль на двух слайдах и экспортирует PNG для визуальной проверки перед PDF.",
+    "tests": "brand-assets.md + design.md + html-decks.md"
+  },
+  {
+    "id": 7,
+    "prompt": "Сделай образовательные слайды для 7 класса, можно использовать эмоджи, но чтобы они были разного размера и не выглядели как мусор.",
+    "expected": "Использует content-assets.md вместе с Teaching Lab и системой учебных эмоджи: уточняет аудиторию и тон, не заменяет предметные изображения эмоджи, задает роли эмоджи и токены размеров, регулирует размеры через CSS-классы, проверяет PNG и не превращает эмоджи в случайный декор.",
+    "tests": "content-assets.md + design.md + design-directions.md + workflow.md + assets/examples/directions/teaching-lab-emoji.html"
+  },
+  {
+    "id": 8,
+    "prompt": "Сделай урок английского про части тела, нужен редактируемый PPTX, картинки должны быть нормальные, не SVG-человечек.",
+    "expected": "Срабатывает порядок подбора содержательных материалов: агент ищет локальное или публичное изображение тела либо генерирует растровый вариант, вставляет осмысленное изображение через <img>, оставляет подписи слов редактируемыми текстовыми блоками. Из-за прямого запроса пользователя SVG применяется для стрелок, выносок и служебных слоев; если растр не получился, агент честно сообщает ограничение или ставит заглушку.",
+    "tests": "content-assets.md + workflow.md + pptx-authoring.md"
+  },
+  {
+    "id": 9,
+    "prompt": "Сделай учебные слайды для 5 класса по биологии про строение листа. Хочу Teaching Lab, можно эмодзи, но детям нужно видеть, о чем речь.",
+    "expected": "Teaching Lab не ограничивается шагами и эмодзи: агент сначала решает, что нужен рисунок, фотография или схема листа, подбирает или честно помечает предметное изображение, оставляет названия частей редактируемыми подписями, использует стрелки и выноски отдельными слоями, а эмодзи применяет только как подсказки к упражнению или повторению.",
+    "tests": "content-assets.md + design.md + design-directions.md + workflow.md + assets/examples/directions/teaching-lab-visuals.html"
+  },
+  {
+    "id": 10,
+    "prompt": "Сделай 10-слайдовую презентацию и редактируемый PPTX для команды, файл будут открывать и на Windows, и на macOS.",
+    "expected": "Агент сразу переключается в PPTX-safe режим: выбирает только whitelist primary fonts, требует UTF-8 HTML, проверяет читаемость эмоджи при их наличии и явно проектирует deck как кроссплатформенный PowerPoint output.",
+    "tests": "SKILL.md + workflow.md + pptx-authoring.md + html-decks.md"
+  },
+  {
+    "id": 11,
+    "prompt": "Сделай веселую образовательную PPTX-презентацию для детей, можно эмодзи, но чтобы потом PowerPoint открывался одинаково.",
+    "expected": "Агент сохраняет учебную роль эмодзи-подсказок в PPTX-safe режиме: выбирает размер по шкале слайда, проверяет читаемость в PNG/PPTX и держит кроссплатформенно-безопасные шрифты.",
+    "tests": "content-assets.md + pptx-authoring.md + workflow.md + assets/examples/directions/teaching-lab-pptx-safe.html"
+  },
+  {
+    "id": 12,
+    "prompt": "Сделай keynote-style editable PPTX с ощущением Apple, но чтобы потом можно было править на Windows.",
+    "expected": "Агент сохраняет настроение через композицию, цвет и изображения, но не выбирает Avenir/SF/system fonts как primary text fonts для editable PPTX. Если стиль зависит от unsafe fonts, агент честно предлагает PDF/PNG или constrained PPTX variant.",
+    "tests": "workflow.md + pptx-authoring.md + html-decks.md"
+  },
+  {
+    "id": 13,
+    "prompt": "Экспортируй в editable PPTX deck с primary font Avenir Next.",
+    "expected": "PPTX export path блокирует сборку по умолчанию и выдает понятную ошибку с safe replacements. Только явный CLI escape hatch `--allow-unsafe-fonts` переводит эту ошибку в warning.",
+    "tests": "scripts/export_deck_pptx.mjs + scripts/html2pptx.js + pptx-authoring.md"
+  },
+  {
+    "id": 14,
+    "prompt": "Сделай презентацию с векторной обложкой в SVG: абстрактная сцена про исследовательскую лабораторию, нужны HTML, PNG и отдельный SVG-файл.",
+    "expected": "Агент выбирает presentation-svg.md, делает самодостаточный native SVG без внешних ресурсов, проверяет безопасность и PNG-рендер через scripts/presentation_svg_pipeline.mjs, просматривает PNG как слайдовый материал и затем экспортирует всю презентацию в PNG штатным скриптом.",
+    "tests": "presentation-svg.md + html-decks.md + scripts/presentation_svg_pipeline.mjs"
+  },
+  {
+    "id": 15,
+    "prompt": "Сделай сложную SVG-обложку для лекции: ночная оранжерея на другой планете, стеклянный купол, мягкий свет, необычные геометрические растения. Нужны PNG-превью и вставка в HTML-презентацию.",
+    "expected": "Агент использует presentation-svg.md как вход, затем svg-presentation/workflow.md и svg-presentation/techniques.md, фиксирует роль обложки в деке, строит сцену слоями, оставляет место под текст презентации, запускает audit и правит SVG по PNG-ревью.",
+    "tests": "presentation-svg.md + svg-presentation/workflow.md + svg-presentation/techniques.md + svg-presentation/visual-review.md + scripts/presentation_svg_pipeline.mjs"
+  },
+  {
+    "id": 16,
+    "prompt": "Вот существующий SVG-разделитель для презентации, но он содержит onload и внешний href. Почини, сохрани стиль и сделай PNG для проверки.",
+    "expected": "Агент сохраняет исходный файл отдельно, читает svg-presentation/safety.md, удаляет активный код и внешние ссылки, заменяет рискованные части внутренними SVG-формами, запускает validate и audit, затем смотрит PNG на читаемость разделителя.",
+    "tests": "svg-presentation/safety.md + svg-presentation/troubleshooting.md + scripts/presentation_svg_pipeline.mjs"
+  },
+  {
+    "id": 17,
+    "prompt": "Сделай SVG-схему на русском языке для слайда про Go generics: строгий стиль, но живой, нужен PNG для просмотра.",
+    "expected": "Агент применяет svg-presentation/language.md, оставляет Go, generics и SVG как технические термины, пишет русские подписи естественно, проверяет читаемость текста на PNG и убирает случайные англоязычные шаблоны.",
+    "tests": "svg-presentation/language.md + svg-presentation/visual-review.md + scripts/presentation_svg_pipeline.mjs"
+  },
+  {
+    "id": 18,
+    "prompt": "Добавь лёгкую анимацию дыхания света к SVG-обложке, но файл должен быть безопасным для HTML-презентации и иметь статичный PNG-превью.",
+    "expected": "Агент использует svg-presentation/techniques.md, выбирает безопасную SMIL-анимацию без JavaScript, держит статичный первый кадр полноценным, запускает validate и render, предупреждает про поддержку анимации в среде публикации.",
+    "tests": "svg-presentation/techniques.md + svg-presentation/safety.md + scripts/presentation_svg_pipeline.mjs"
+  },
+  {
+    "id": 19,
+    "prompt": "Сделай учебные слайды про строение сердца, но нарисуй сердце целиком SVG-формами, чтобы не искать картинки.",
+    "expected": "Агент не пропускает подбор материалов ради скорости: сначала выполняет content-assets.md, ищет или создаёт растровый учебный материал, оставляет подписи редактируемыми слоями. Если растр найти или создать нельзя либо результат слабый, агент переходит к presentation-svg.md и делает проверенную стилизованную SVG-схему сердца с честной пометкой ограничения.",
+    "tests": "content-assets.md + presentation-svg.md + pptx-authoring.md"
+  },
+  {
+    "id": 20,
+    "prompt": "Сделай слайд про древний механизм. Я не нашел подходящих картинок, генерация PNG у меня недоступна, но нужно содержательное изображение.",
+    "expected": "Агент фиксирует провал растрового пути, не оставляет слайд пустым и не выдумывает документальный источник. Он создаёт сложную SVG-иллюстрацию или условную схему механизма через presentation-svg.md, запускает validate/audit при доступном рендерере, держит подписи отдельными слоями и сообщает, что это запасной SVG-визуал.",
+    "tests": "content-assets.md + presentation-svg.md + svg-presentation/workflow.md + scripts/presentation_svg_pipeline.mjs"
+  },
+  {
+    "id": 21,
+    "prompt": "Сделай 15-слайдовую editable PPTX-презентацию для 8-летнего ESL-ученика про weather, seasons, months and clothes. Нужны картинки мальчика в зимней, летней и весенне-осенней одежде.",
+    "expected": "Агент проходит asset gate до визуального дизайна: классифицирует картинки мальчика как character/clothes, читает asset-gate.md, content-assets.md и Young ESL, подбирает или генерирует растровые PNG/JPG/WebP-картинки через imagegen, сохраняет их в assets презентации и фиксирует источник в asset-manifest.json. Самодельный SVG, HTML/CSS-рисунок или SVG -> PNG не засчитывается как растровый путь. Если реального растра нет, агент останавливается и просит материал, поиск, imagegen или явное fallback approval. Вопросы, vocabulary, sentence frames и подписи остаются редактируемым текстом.",
+    "tests": "SKILL.md Execution Gates + asset-gate.md + content-assets.md жёсткий запрет + design-directions.md Young ESL + pptx-authoring.md + imagegen"
+  },
+  {
+    "id": 22,
+    "prompt": "Сделай длинную HTML-презентацию на 18 слайдов и PDF. В конце просто скажи, что все готово.",
+    "expected": "Агент не сдаёт финальный результат без последовательной PNG-проверки. Он экспортирует все 18 слайдов, создает exports/slide-qa.md со строкой на каждый PNG, исправляет дефекты и в финальном ответе называет чистый проход 18/18, PNG-папку и реестр.",
+    "tests": "SKILL.md + workflow.md + html-decks.md + slide-qa.md"
+  },
+  {
+    "id": 23,
+    "prompt": "Проверь готовую презентацию на 24 слайда. Мне нужен жесткий разбор, но быстро.",
+    "expected": "Агент отделяет черновой быстрый просмотр от полной проверки. Для экспертной проверки всей презентации он использует deck-review.md вместе со slide-qa.md, проходит PNG 1..24 без пропусков, фиксирует покрытие и не делает вывод по нескольким выбранным слайдам.",
+    "tests": "deck-review.md + slide-qa.md"
+  },
+  {
+    "id": 24,
+    "prompt": "После PNG-проверки поправь дефекты на слайдах 3, 9 и 14, потом экспортируй PDF.",
+    "expected": "Агент исправляет указанные слайды, снова экспортирует PNG и выполняет чистый проход 1..N перед PDF. Если правки затронули общие стили или компоненты, он начинает проверку с первого слайда и обновляет exports/slide-qa.md.",
+    "tests": "slide-qa.md + html-decks.md + workflow.md"
+  },
+  {
+    "id": 25,
+    "prompt": "Сделай editable PPTX из готового HTML-дека. Слайды уже выглядят нормально, можно сразу в pptx.",
+    "expected": "Агент сначала выполняет asset gate, PPTX-safe preflight и свежий PNG-экспорт, затем ведет exports/slide-qa.md и добивается чистого прохода N/N. Только после этого он запускает export_deck_pptx.mjs и проверяет редактируемость текста.",
+    "tests": "asset-gate.md + pptx-authoring.md + slide-qa.md + html-decks.md + scripts/export_deck_pptx.mjs"
+  },
+  {
+    "id": 26,
+    "prompt": "Сделай editable PPTX для 8-летнего ESL-ученика: weather and clothes. Локальных картинок нет. Нужны мальчик в зимней одежде, мальчик в летней одежде и карточки clothes.",
+    "expected": "Агент не строит персонажей и одежду как SVG-origin материалы. Он записывает, что локальных картинок нет, проходит asset-gate.md и content-assets.md, использует imagegen для растровых PNG/JPG/WebP персонажей и карточек одежды либо останавливается и просит разрешение на imagegen, поиск, материал или явное fallback approval. SVG -> PNG, самодельные SVG-персонажи и HTML/CSS-одежда считаются нарушением. Простые учебные подсказки сначала закрываются эмоджи с подобранным размером, а в PPTX все учебные слова, вопросы и речевые рамки остаются редактируемыми текстовыми слоями.",
+    "tests": "SKILL.md Execution Gates + asset-gate.md + content-assets.md жёсткий запрет + design-directions.md Young ESL + pptx-authoring.md + imagegen"
+  },
+  {
+    "id": 27,
+    "prompt": "Сделай быстрее: нарисуй мальчика в зимней одежде SVG-формами, сохрани как PNG и вставь в ESL PPTX. Мне важна скорость.",
+    "expected": "Агент отказывается считать SVG -> PNG растровым путем. Он классифицирует мальчика и одежду как character/clothes, создает или обновляет asset-manifest.json, затем использует imagegen для настоящего PNG/JPG/WebP либо останавливается и просит материал, поиск, imagegen или явное fallback approval. Скорость, единый стиль и editable PPTX не меняют порядок asset-gate.md и content-assets.md.",
+    "tests": "SKILL.md Execution Gates + asset-gate.md + content-assets.md Абсолютный запрет обхода процесса + design-directions.md Young ESL + pptx-authoring.md"
+  },
+  {
+    "id": 28,
+    "prompt": "Сделай урок про одежду и напиши, что нашел открытые PNG-картинки куртки и шарфа. Поиск можно не делать, просто продолжай.",
+    "expected": "Агент не выдумывает открытый источник, лицензию или путь к файлу. Он пишет, что источник не подтвержден, проходит asset gate, проверяет локальные материалы и разрешенные источники либо просит пользователя дать файлы. Без инструментального поиска или пользовательского подтверждения нельзя заявлять, что PNG найден, а asset-manifest.json не должен содержать выдуманный source_kind/path/evidence.",
+    "tests": "SKILL.md Абсолютное правило исполнения + asset-gate.md + content-assets.md запрет выдумывать источники + workflow.md asset gate"
+  },
+  {
+    "id": 29,
+    "prompt": "Сделай young ESL с мальчиком и одеждой, но imagegen у тебя недоступен. Никаких вопросов, просто поставь красивую SVG-картинку.",
+    "expected": "Агент фиксирует недоступность imagegen в asset-manifest.json, указывает проверенные локальные и пользовательские материалы, объясняет, почему PNG/JPG/WebP не получен, и останавливается. Фраза «никаких вопросов, просто поставь SVG» считается блокером, а не fallback approval. SVG-запас или заглушка допустимы только после отдельного явного подтверждения fallback.",
+    "tests": "asset-gate.md fallback + content-assets.md stop rule + workflow.md asset gate + presentation-svg.md + asset-manifest.json"
+  },
+  {
+    "id": 30,
+    "prompt": "Нужен кроссплатформенный editable PPTX для ребенка. Чтобы PowerPoint не сломался, замени ребенка и одежду на простые SVG-иконки.",
+    "expected": "Агент не заменяет ребенка, одежду или предметные карточки SVG-формами ради стабильного PowerPoint. Он применяет pptx-authoring.md для безопасных шрифтов и HTML, но визуалы character/clothes проходят asset-gate.md и content-assets.md: настоящий PNG/JPG/WebP через локальные материалы, материалы пользователя, открытый источник или imagegen. Если растра нет, агент останавливается и просит материал, imagegen, поиск или явное fallback approval. SVG остается для стрелок, выносок, схем и декоративных маркеров.",
+    "tests": "pptx-authoring.md Raster Images in Editable PPTX + SKILL.md Execution Gates + asset-gate.md + content-assets.md + design-directions.md Young ESL"
+  }
+]
